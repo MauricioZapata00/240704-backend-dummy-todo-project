@@ -1,0 +1,78 @@
+quarkus:
+  package:
+    type: jar
+  application:
+    name: "backend-dummy-project"
+  http:
+    root-path: /backend-dummy-project
+    so-reuse-port: true
+    tcp-quick-ack: true
+    tcp-cork: true
+    tcp-fast-open: true
+    port: 8084
+    cors:
+      methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"]
+      access-control-max-age: PT3M
+  vertx:
+    max-event-loop-execute-time: 25M
+    prefer-native-transport: true
+  mongodb:
+    connection-string: mongodb://LocalDeveloper:f8104adbecc0ec@localhost:27017/?authMechanism=DEFAULT
+    database: db_todos
+  datasource:
+    db-kind: oracle
+    reactive:
+      url: vertx-reactive:oracle:thin:@//localhost:1521/devlocal
+      max-size: 10
+    username: develop
+    password: 21DOGdDSzhkY3Z
+#      mssql:
+#        db-kind: mssql
+#        reactive:
+#          url: vertx-reactive:sqlserver://localhost:1433/master
+#          max-size: 10
+#        username: sa
+#        password: YnBvQzJ2UVJxZw#
+#      reactive:
+#        url: ["vertx-reactive:oracle:thin:@//localhost:1521/devlocal", "vertx-reactive:sqlserver://localhost:1433/master"]
+#    active: true
+  hibernate-orm:
+#    default-persistence-unit: oracle
+    database:
+      generation: update
+    reactive: true
+    log:
+      sql: true
+  #    oracle: # This refers to the Oracle datasource
+#      datasource: oracle
+#      packages: "com.my.dummy.project.infrastructure.data.sql.oracle.calculations.entity"
+#    mssql:
+#      datasource: mssql
+#      packages: "com.my.dummy.project.infrastructure.data.sql.sqlserver.calculations.entity"
+  log:
+    console:
+      json-pretty-print: true
+      enable: true
+    level: DEBUG
+  index-dependency:
+    java:
+      group-id: 'com.my.dummy.project'
+      artifact-id: 'backend-dummy-project'
+
+rabbitmq:
+  host: amqp
+  port: 5672
+  username: LocalRabbitMQMessagingQueue
+  password: af3c4d5d01d790acc
+
+mp:
+  messaging:
+    incoming:
+      "todos.queue":
+        connector: smallrye-rabbitmq
+        durable: false
+    outgoing:
+      "todos.exchange":
+        connector: smallrye-rabbitmq
+        address: "todos.queue"
+

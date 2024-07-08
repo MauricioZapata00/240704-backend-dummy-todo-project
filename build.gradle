@@ -1,0 +1,77 @@
+plugins {
+    id 'java'
+    id 'io.quarkus'
+}
+
+repositories {
+    mavenCentral()
+    mavenLocal()
+}
+
+dependencies {
+    implementation enforcedPlatform("${quarkusPlatformGroupId}:${quarkusPlatformArtifactId}:${quarkusPlatformVersion}")
+    implementation 'io.quarkus:quarkus-arc'
+    implementation 'io.quarkus:quarkus-resteasy-reactive'
+    compileOnly 'org.projectlombok:lombok:1.18.34'
+    annotationProcessor 'org.projectlombok:lombok:1.18.34'
+    implementation "io.quarkus:quarkus-arc:${quarkusPlatformVersion}"
+    implementation "io.quarkus:quarkus-jackson:${quarkusPlatformVersion}"
+    implementation "io.quarkus:quarkus-mutiny:$quarkusPlatformVersion"
+    implementation "io.quarkus:quarkus-smallrye-openapi:$quarkusPlatformVersion"
+    implementation "io.quarkus:quarkus-junit5-mockito:$quarkusPlatformVersion"
+
+    testImplementation 'io.smallrye.reactive:mutiny:2.6.1'
+    testImplementation 'org.mockito:mockito-core:5.12.0'
+    testImplementation 'org.mockito:mockito-junit-jupiter:5.12.0'
+    testImplementation 'org.mockito:mockito-inline:5.2.0'
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.10.3'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.10.3'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.10.3'
+    testImplementation "io.quarkus:quarkus-junit5:${quarkusPlatformVersion}"
+
+
+    //Oracle connection
+    implementation 'com.oracle.database.jdbc:ojdbc11:23.4.0.24.05'
+    implementation "io.quarkus:quarkus-hibernate-reactive-panache:$quarkusPlatformVersion"
+    implementation "io.quarkus:quarkus-hibernate-reactive:$quarkusPlatformVersion"
+    implementation "io.quarkus:quarkus-reactive-oracle-client:$quarkusPlatformVersion"
+
+
+    //Oracle connection
+    implementation "io.quarkus:quarkus-jdbc-mssql:$quarkusPlatformVersion"
+//    implementation "io.quarkus:quarkus-hibernate-reactive-panache:$quarkusPlatformVersion"
+    implementation "io.quarkus:quarkus-hibernate-reactive:$quarkusPlatformVersion"
+    implementation "io.quarkus:quarkus-reactive-mssql-client:$quarkusPlatformVersion"
+
+    //MongoDB connection
+    implementation "io.quarkus:quarkus-mongodb-panache:$quarkusPlatformVersion"
+
+    //RabbitMQ connection
+    //https://es.quarkus.io/guides/rabbitmq
+    implementation 'io.quarkus:quarkus-messaging-rabbitmq:3.12.1'
+
+
+
+}
+
+group 'com.my.dummy.project'
+version '1.0.0-SNAPSHOT'
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_21
+    targetCompatibility = JavaVersion.VERSION_21
+}
+
+test {
+//    systemProperty "java.util.logging.manager", "org.jboss.logmanager.LogManager"
+    jvmArgs '-XX:+EnableDynamicAgentLoading'
+    useJUnitPlatform()
+}
+compileJava {
+    options.encoding = 'UTF-8'
+    options.compilerArgs << '-parameters'
+}
+
+compileTestJava {
+    options.encoding = 'UTF-8'
+}
