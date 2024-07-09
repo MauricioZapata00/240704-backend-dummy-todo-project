@@ -16,6 +16,8 @@ dependencies {
     annotationProcessor 'org.projectlombok:lombok:1.18.34'
     implementation "io.quarkus:quarkus-arc:${quarkusPlatformVersion}"
     implementation "io.quarkus:quarkus-jackson:${quarkusPlatformVersion}"
+    implementation "io.quarkus:quarkus-rest-jackson:${quarkusPlatformVersion}"
+    compileOnly 'org.jboss.forge.furnace.container:cdi-api:2.29.1.Final'
     implementation "io.quarkus:quarkus-mutiny:$quarkusPlatformVersion"
     implementation "io.quarkus:quarkus-smallrye-openapi:$quarkusPlatformVersion"
     implementation "io.quarkus:quarkus-junit5-mockito:$quarkusPlatformVersion"
@@ -31,24 +33,27 @@ dependencies {
 
 
     //Oracle connection
-    implementation 'com.oracle.database.jdbc:ojdbc11:23.4.0.24.05'
     implementation "io.quarkus:quarkus-hibernate-reactive-panache:$quarkusPlatformVersion"
     implementation "io.quarkus:quarkus-hibernate-reactive:$quarkusPlatformVersion"
-    implementation "io.quarkus:quarkus-reactive-oracle-client:$quarkusPlatformVersion"
+    implementation ("io.quarkus:quarkus-reactive-oracle-client:$quarkusPlatformVersion"){
+        exclude group: 'org.testcontainers', module: 'testcontainers'
+    }
 
 
-    //Oracle connection
-    implementation "io.quarkus:quarkus-jdbc-mssql:$quarkusPlatformVersion"
-//    implementation "io.quarkus:quarkus-hibernate-reactive-panache:$quarkusPlatformVersion"
-    implementation "io.quarkus:quarkus-hibernate-reactive:$quarkusPlatformVersion"
-    implementation "io.quarkus:quarkus-reactive-mssql-client:$quarkusPlatformVersion"
+    //MicrosoftSqlServer connection
+//    implementation "io.quarkus:quarkus-hibernate-reactive:$quarkusPlatformVersion"
+//    implementation "io.quarkus:quarkus-reactive-mssql-client:$quarkusPlatformVersion"
 
     //MongoDB connection
-    implementation "io.quarkus:quarkus-mongodb-panache:$quarkusPlatformVersion"
+    implementation ("io.quarkus:quarkus-mongodb-panache:$quarkusPlatformVersion"){
+        exclude group: 'org.testcontainers', module: 'testcontainers'
+    }
 
     //RabbitMQ connection
     //https://es.quarkus.io/guides/rabbitmq
-    implementation 'io.quarkus:quarkus-messaging-rabbitmq:3.12.1'
+    implementation ('io.quarkus:quarkus-messaging-rabbitmq:3.12.1'){
+        exclude group: 'org.testcontainers', module: 'testcontainers'
+    }
 
 
 

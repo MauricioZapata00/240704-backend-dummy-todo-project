@@ -9,7 +9,7 @@ import org.bson.codecs.pojo.annotations.BsonId;
 @Getter
 @Setter
 @NoArgsConstructor
-@MongoEntity(collection = "routes")
+@MongoEntity(collection = "todos")
 public class TodoDocument {
     @BsonId
     private String id;

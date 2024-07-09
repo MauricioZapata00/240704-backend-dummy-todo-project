@@ -25,7 +25,7 @@ import java.util.function.BiFunction;
 public class SaveMathematicalOperationUseCaseImpl implements SaveMathematicalOperationUseCase {
 
     private final MathematicalResultRepository mathematicalResultRepository;
-    private final MathematicalResultMSRepository mathematicalResultMSRepository;
+//    private final MathematicalResultMSRepository mathematicalResultMSRepository;
     private final ValidateOperationUseCase validateOperationUseCase;
 
     private final Map<String, BiFunction<Double, Double, Double>> validOperations = new HashMap<>();
@@ -74,8 +74,8 @@ public class SaveMathematicalOperationUseCaseImpl implements SaveMathematicalOpe
         return mathematicalResultRepository.save(MathematicalResult.builder()
                         .id(UUID.randomUUID().toString())
                         .result(validOperations.get(operationName).apply(firstNumber, secondNumber))
-                .build())
-                .flatMap(this.mathematicalResultMSRepository::save);
+                .build());
+//                .flatMap(this.mathematicalResultMSRepository::save);
     }
 
 

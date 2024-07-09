@@ -13,14 +13,14 @@ import java.util.concurrent.atomic.AtomicLong;
 
 @ApplicationScoped
 @RequiredArgsConstructor
-public class MathematicalResultMSServerDataAdapter implements MathematicalResultMSRepository {
+public class MathematicalResultMSServerDataAdapter {
 
 
     private final AtomicLong counter = new AtomicLong();
 
     private final MathematicalResultMSServerDataRepository mathematicalResultDataRepository;
 
-    @Override
+//    @Override
     public Uni<MathematicalResult> save(MathematicalResult mathematicalResult) {
         MathematicalResultMSServerEntity entityToStore = this.mapModelToEntity(mathematicalResult);
         return mathematicalResultDataRepository.persist(entityToStore)

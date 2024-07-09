@@ -1,4 +1,6 @@
 quarkus:
+  arc:
+    remove-unused-beans: none
   package:
     type: jar
   application:
@@ -19,42 +21,40 @@ quarkus:
   mongodb:
     connection-string: mongodb://LocalDeveloper:f8104adbecc0ec@localhost:27017/?authMechanism=DEFAULT
     database: db_todos
+  devservices:
+    enabled: false
   datasource:
     db-kind: oracle
+#    reactive:
+#      url: vertx-reactive:oracle:thin:@localhost:1521/devlocal
+#      max-size: 10
+    username: LocalDeveloper
+    password: mxMVFk1TkRsaE1EUTJOelZ
+    active: true
+    default-data-source:
+      name: oracle
     reactive:
-      url: vertx-reactive:oracle:thin:@//localhost:1521/devlocal
-      max-size: 10
-    username: develop
-    password: 21DOGdDSzhkY3Z
-#      mssql:
-#        db-kind: mssql
-#        reactive:
-#          url: vertx-reactive:sqlserver://localhost:1433/master
-#          max-size: 10
-#        username: sa
-#        password: YnBvQzJ2UVJxZw#
+      url: ["vertx-reactive:oracle:thin:@localhost:1521/devlocal"]
+  #    mssql:
+#      db-kind: mssql
 #      reactive:
-#        url: ["vertx-reactive:oracle:thin:@//localhost:1521/devlocal", "vertx-reactive:sqlserver://localhost:1433/master"]
-#    active: true
+#        url: vertx-reactive:sqlserver://localhost:1433/master
+#        max-size: 10
+#      username: sa
+#      password: YnBvQzJ2UVJxZw#
+#      active: true
   hibernate-orm:
-#    default-persistence-unit: oracle
     database:
       generation: update
-    reactive: true
     log:
       sql: true
-  #    oracle: # This refers to the Oracle datasource
-#      datasource: oracle
-#      packages: "com.my.dummy.project.infrastructure.data.sql.oracle.calculations.entity"
-#    mssql:
-#      datasource: mssql
-#      packages: "com.my.dummy.project.infrastructure.data.sql.sqlserver.calculations.entity"
   log:
     console:
-      json-pretty-print: true
       enable: true
     level: DEBUG
   index-dependency:
+    backend-dummy-project:
+      group-id: 'com.my.dummy.project'
     java:
       group-id: 'com.my.dummy.project'
       artifact-id: 'backend-dummy-project'

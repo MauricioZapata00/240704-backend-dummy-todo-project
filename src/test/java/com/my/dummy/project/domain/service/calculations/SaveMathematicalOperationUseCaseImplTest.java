@@ -20,8 +20,8 @@ class SaveMathematicalOperationUseCaseImplTest {
     @Mock
     private MathematicalResultRepository mathematicalResultRepositoryMock;
 
-    @Mock
-    private MathematicalResultMSRepository mathematicalResultMSRepositoryMock;
+//    @Mock
+//    private MathematicalResultMSRepository mathematicalResultMSRepositoryMock;
 
     @Mock
     private ValidateOperationUseCase validateOperationUseCaseMock;
@@ -53,8 +53,8 @@ class SaveMathematicalOperationUseCaseImplTest {
                 .process(Mockito.anyDouble(), Mockito.anyDouble(), Mockito.anyString());
         Mockito.verify(mathematicalResultRepositoryMock, Mockito.never())
                 .save(Mockito.any(MathematicalResult.class));
-        Mockito.verify(mathematicalResultMSRepositoryMock, Mockito.never())
-                .save(Mockito.any(MathematicalResult.class));
+//        Mockito.verify(mathematicalResultMSRepositoryMock, Mockito.never())
+//                .save(Mockito.any(MathematicalResult.class));
     }
 
     @Test
@@ -78,8 +78,8 @@ class SaveMathematicalOperationUseCaseImplTest {
                 .process(Mockito.anyDouble(), Mockito.anyDouble(), Mockito.anyString());
         Mockito.verify(mathematicalResultRepositoryMock, Mockito.never())
                 .save(Mockito.any(MathematicalResult.class));
-        Mockito.verify(mathematicalResultMSRepositoryMock, Mockito.never())
-                .save(Mockito.any(MathematicalResult.class));
+//        Mockito.verify(mathematicalResultMSRepositoryMock, Mockito.never())
+//                .save(Mockito.any(MathematicalResult.class));
     }
 
     @Test
@@ -95,8 +95,8 @@ class SaveMathematicalOperationUseCaseImplTest {
                 .thenReturn(Boolean.TRUE);
         Mockito.when(mathematicalResultRepositoryMock.save(Mockito.any(MathematicalResult.class)))
                 .thenReturn(Uni.createFrom().item(expectedResult));
-        Mockito.when(mathematicalResultMSRepositoryMock.save(Mockito.any(MathematicalResult.class)))
-                .thenReturn(Uni.createFrom().item(expectedResult));
+//        Mockito.when(mathematicalResultMSRepositoryMock.save(Mockito.any(MathematicalResult.class)))
+//                .thenReturn(Uni.createFrom().item(expectedResult));
 
         underTest.process(firstNumberForTest, secondNumberForTest, operationForTest)
                 .subscribe().with(underTestResult -> {
@@ -109,8 +109,8 @@ class SaveMathematicalOperationUseCaseImplTest {
                 .process(Mockito.anyDouble(), Mockito.anyDouble(), Mockito.anyString());
         Mockito.verify(mathematicalResultRepositoryMock, Mockito.times(1))
                 .save(Mockito.any(MathematicalResult.class));
-        Mockito.verify(mathematicalResultMSRepositoryMock, Mockito.times(1))
-                .save(Mockito.any(MathematicalResult.class));
+//        Mockito.verify(mathematicalResultMSRepositoryMock, Mockito.times(1))
+//                .save(Mockito.any(MathematicalResult.class));
     }
 
     @Test
@@ -126,8 +126,8 @@ class SaveMathematicalOperationUseCaseImplTest {
                 .thenReturn(Boolean.TRUE);
         Mockito.when(mathematicalResultRepositoryMock.save(Mockito.any(MathematicalResult.class)))
                 .thenReturn(Uni.createFrom().item(expectedResult));
-        Mockito.when(mathematicalResultMSRepositoryMock.save(Mockito.any(MathematicalResult.class)))
-                .thenReturn(Uni.createFrom().item(expectedResult));
+//        Mockito.when(mathematicalResultMSRepositoryMock.save(Mockito.any(MathematicalResult.class)))
+//                .thenReturn(Uni.createFrom().item(expectedResult));
 
         underTest.process(firstNumberForTest, secondNumberForTest, operationForTest)
                 .subscribe().with(underTestResult -> {
@@ -140,8 +140,8 @@ class SaveMathematicalOperationUseCaseImplTest {
                 .process(Mockito.anyDouble(), Mockito.anyDouble(), Mockito.anyString());
         Mockito.verify(mathematicalResultRepositoryMock, Mockito.times(1))
                 .save(Mockito.any(MathematicalResult.class));
-        Mockito.verify(mathematicalResultMSRepositoryMock, Mockito.times(1))
-                .save(Mockito.any(MathematicalResult.class));
+//        Mockito.verify(mathematicalResultMSRepositoryMock, Mockito.times(1))
+//                .save(Mockito.any(MathematicalResult.class));
     }
 
     @Test
@@ -157,8 +157,8 @@ class SaveMathematicalOperationUseCaseImplTest {
                 .thenReturn(Boolean.TRUE);
         Mockito.when(mathematicalResultRepositoryMock.save(Mockito.any(MathematicalResult.class)))
                 .thenReturn(Uni.createFrom().item(expectedResult));
-        Mockito.when(mathematicalResultMSRepositoryMock.save(Mockito.any(MathematicalResult.class)))
-                .thenReturn(Uni.createFrom().item(expectedResult));
+//        Mockito.when(mathematicalResultMSRepositoryMock.save(Mockito.any(MathematicalResult.class)))
+//                .thenReturn(Uni.createFrom().item(expectedResult));
 
         underTest.process(firstNumberForTest, secondNumberForTest, operationForTest)
                 .subscribe().with(underTestResult -> {
@@ -171,8 +171,8 @@ class SaveMathematicalOperationUseCaseImplTest {
                 .process(Mockito.anyDouble(), Mockito.anyDouble(), Mockito.anyString());
         Mockito.verify(mathematicalResultRepositoryMock, Mockito.times(1))
                 .save(Mockito.any(MathematicalResult.class));
-        Mockito.verify(mathematicalResultMSRepositoryMock, Mockito.times(1))
-                .save(Mockito.any(MathematicalResult.class));
+//        Mockito.verify(mathematicalResultMSRepositoryMock, Mockito.times(1))
+//                .save(Mockito.any(MathematicalResult.class));
     }
 
     @Test
@@ -188,8 +188,8 @@ class SaveMathematicalOperationUseCaseImplTest {
                 .thenReturn(Boolean.TRUE);
         Mockito.when(mathematicalResultRepositoryMock.save(Mockito.any(MathematicalResult.class)))
                 .thenReturn(Uni.createFrom().item(expectedResult));
-        Mockito.when(mathematicalResultMSRepositoryMock.save(Mockito.any(MathematicalResult.class)))
-                .thenReturn(Uni.createFrom().item(expectedResult));
+//        Mockito.when(mathematicalResultMSRepositoryMock.save(Mockito.any(MathematicalResult.class)))
+//                .thenReturn(Uni.createFrom().item(expectedResult));
 
         underTest.process(firstNumberForTest, secondNumberForTest, operationForTest)
                 .subscribe().with(underTestResult -> {
@@ -202,7 +202,7 @@ class SaveMathematicalOperationUseCaseImplTest {
                 .process(Mockito.anyDouble(), Mockito.anyDouble(), Mockito.anyString());
         Mockito.verify(mathematicalResultRepositoryMock, Mockito.times(1))
                 .save(Mockito.any(MathematicalResult.class));
-        Mockito.verify(mathematicalResultMSRepositoryMock, Mockito.times(1))
-                .save(Mockito.any(MathematicalResult.class));
+//        Mockito.verify(mathematicalResultMSRepositoryMock, Mockito.times(1))
+//                .save(Mockito.any(MathematicalResult.class));
     }
 }
