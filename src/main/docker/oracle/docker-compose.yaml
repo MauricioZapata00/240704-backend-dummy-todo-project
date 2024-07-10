@@ -1,0 +1,21 @@
+---
+# docker-compose -f docker-compose.yaml up -d
+# podman run -d --name oracle -p 1521:1521 -e ORACLE_DATABASE=devlocal -e APP_USER=develop -e APP_USER_PASSWORD=21DOGdDSzhkY3Z -e ORACLE_PASSWORD=21DOGdDSzhkY3Z gvenzl/oracle-free
+version: '3.8'
+services:
+  database:
+    image: gvenzl/oracle-free
+    container_name: 'OracleDB'
+    ports:
+      - '1521:1521'
+    environment:
+      - ORACLE_DATABASE=devlocal
+      - APP_USER=develop
+      - APP_USER_PASSWORD=mxMVFk1TkRsaE1EUTJOelZ
+      - ORACLE_PASSWORD=mxMVFk1TkRsaE1EUTJOelZ
+    networks:
+      - local_net_1
+networks:
+  local_net_1:
+    driver: bridge
+    external: true

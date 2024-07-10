@@ -1,6 +1,6 @@
 quarkus:
   package:
-    type: jar
+    type: uber-jar
   application:
     name: "backend-dummy-project"
   http:

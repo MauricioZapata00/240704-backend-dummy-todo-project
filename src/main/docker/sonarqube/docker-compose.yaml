@@ -1,0 +1,13 @@
+---
+# docker-compose -f docker-compose.yaml up -d
+# docker run -d --name sonarqube -e SONAR_ES_BOOTSTRAP_CHECKS_DISABLE=true -p 9000:9000 docker.io/sonarqube:latest
+version: '3.8'
+
+services:
+  sonarqube:
+    image: docker.io/sonarqube:latest
+    container_name: sonarqube
+    environment:
+      - SONAR_ES_BOOTSTRAP_CHECKS_DISABLE=true
+    ports:
+      - "9000:9000"

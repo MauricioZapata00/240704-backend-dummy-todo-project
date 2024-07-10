@@ -1,6 +1,8 @@
 plugins {
     id 'java'
     id 'io.quarkus'
+    id "org.sonarqube" version "5.1.0.4882"
+    id 'jacoco'
 }
 
 repositories {
@@ -68,11 +70,55 @@ java {
     targetCompatibility = JavaVersion.VERSION_21
 }
 
-test {
-//    systemProperty "java.util.logging.manager", "org.jboss.logmanager.LogManager"
-    jvmArgs '-XX:+EnableDynamicAgentLoading'
-    useJUnitPlatform()
+
+sonar {
+    properties {
+
+        // Exclude files from analysis
+        property "sonar.exclusions", "**/infrastructure/data/sql/sqlserver/calculations/repository/**," +
+                "**/infrastructure/data/sql/oracle/calculations/repository/**," +
+                "**/infrastructure/data/sql/nosql/mongo/business/repository/**," +
+                "**/dto/**"
+
+        // Java version
+        property "sonar.java.source", "21"
+
+        // Coverage report path (if you're using JaCoCo)
+        property "sonar.coverage.jacoco.xmlReportPaths", "${layout.buildDirectory}/reports/jacoco/test/jacocoTestReport.xml"
+
+        // Source and test directories
+        property "sonar.sources", "src/main/java"
+        property "sonar.tests", "src/test/java"
+
+        // Encoding of the source files
+        property "sonar.sourceEncoding", "UTF-8"
+
+//        property "sonar.java.binaries", "${layout.buildDirectory}/classes/java/main"
+//        property "sonar.java.test.binaries", "${layout.buildDirectory}/classes/java/test"
+    }
 }
+
+test {
+    systemProperty "java.util.logging.manager", "org.jboss.logmanager.LogManager"
+    jvmArgs "-XX:+EnableDynamicAgentLoading"
+    useJUnitPlatform()
+    finalizedBy jacocoTestReport
+}
+
+jacoco {
+    toolVersion = "0.8.11"
+}
+
+jacocoTestReport {
+    dependsOn test
+    reports {
+        xml.required = true
+        html.required = true
+        csv.required = false
+        html.outputLocation = layout.buildDirectory.dir('jacoco')
+    }
+}
+
 compileJava {
     options.encoding = 'UTF-8'
     options.compilerArgs << '-parameters'
