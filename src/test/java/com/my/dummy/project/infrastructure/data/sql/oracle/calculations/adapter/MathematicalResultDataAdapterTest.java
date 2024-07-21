@@ -34,9 +34,10 @@ class MathematicalResultDataAdapterTest {
                 .result(3.5)
                 .build();
         MathematicalResultEntity mockedEntity = new MathematicalResultEntity();
+        mockedEntity.setId(45L);
         mockedEntity.setResult(modelForTest.getResult());
 
-        Mockito.when(mathematicalResultDataRepositoryMock.persist(Mockito.any(MathematicalResultEntity.class)))
+        Mockito.when(mathematicalResultDataRepositoryMock.persistAndFlush(Mockito.any(MathematicalResultEntity.class)))
                         .thenReturn(Uni.createFrom().item(mockedEntity));
 
         underTest.save(modelForTest)
@@ -46,6 +47,6 @@ class MathematicalResultDataAdapterTest {
                 });
 
         Mockito.verify(mathematicalResultDataRepositoryMock, Mockito.times(1))
-                .persist(Mockito.any(MathematicalResultEntity.class));
+                .persistAndFlush(Mockito.any(MathematicalResultEntity.class));
     }
 }

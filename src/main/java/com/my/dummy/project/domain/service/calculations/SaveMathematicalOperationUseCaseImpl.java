@@ -9,11 +9,11 @@ import com.my.dummy.project.domain.model.calculation.MathematicalResult;
 import com.my.dummy.project.domain.model.calculation.OperationEnum;
 import io.smallrye.mutiny.Uni;
 
+import jakarta.annotation.PostConstruct;
 import jakarta.enterprise.context.ApplicationScoped;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
-import javax.annotation.PostConstruct;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -32,10 +32,10 @@ public class SaveMathematicalOperationUseCaseImpl implements SaveMathematicalOpe
 
     @PostConstruct
     public void init() {
-        validOperations.put(OperationEnum.ADD.name(), Double::sum);
-        validOperations.put(OperationEnum.SUBTRACT.name(), this.getSubtraction());
-        validOperations.put(OperationEnum.MULTIPLY.name(), this.getMultiplication());
-        validOperations.put(OperationEnum.DIVIDE.name(), this.getDivision());
+        this.validOperations.put(OperationEnum.ADD.name(), Double::sum);
+        this.validOperations.put(OperationEnum.SUBTRACT.name(), this.getSubtraction());
+        this.validOperations.put(OperationEnum.MULTIPLY.name(), this.getMultiplication());
+        this.validOperations.put(OperationEnum.DIVIDE.name(), this.getDivision());
     }
 
     private BiFunction<Double, Double, Double> getSubtraction() {
@@ -59,11 +59,11 @@ public class SaveMathematicalOperationUseCaseImpl implements SaveMathematicalOpe
     }
 
     private Boolean checkOperationNameInValidOperationKeysMap(String operationName) {
-        if (Boolean.FALSE.equals(validOperations.containsKey(operationName))){
+        if (Boolean.FALSE.equals(this.validOperations.containsKey(operationName))){
             throw InvalidOperationException.InvalidOperationType
                     .OPERATION_NOT_ALLOWED.build(new Throwable("Unable to map operation: " + operationName));
         }
-        return validOperations.containsKey(operationName);
+        return this.validOperations.containsKey(operationName);
     }
 
     private Uni<MathematicalResult> validateDivisionAndPersistCalculation(Double firstNumber, Double secondNumber, String operationName) {
@@ -73,7 +73,7 @@ public class SaveMathematicalOperationUseCaseImpl implements SaveMathematicalOpe
         }
         return mathematicalResultRepository.save(MathematicalResult.builder()
                         .id(UUID.randomUUID().toString())
-                        .result(validOperations.get(operationName).apply(firstNumber, secondNumber))
+                        .result(this.validOperations.get(operationName).apply(firstNumber, secondNumber))
                 .build());
 //                .flatMap(this.mathematicalResultMSRepository::save);
     }

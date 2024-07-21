@@ -41,6 +41,9 @@ quarkus:
     java:
       group-id: 'com.my.dummy.project'
       artifact-id: 'backend-dummy-project'
+  swagger-ui:
+    enable: true
+    path: '/backend-dummy-project/swagger-ui'
 
 rabbitmq:
   host: amqp
