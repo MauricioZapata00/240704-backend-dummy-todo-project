@@ -78,7 +78,7 @@ sonar {
         // Exclude files from analysis
         property "sonar.exclusions", "**/infrastructure/data/sql/sqlserver/calculations/repository/**," +
                 "**/infrastructure/data/sql/oracle/calculations/repository/**," +
-                "**/infrastructure/data/sql/nosql/mongo/business/repository/**," +
+                "**/infrastructure/data/nosql/mongo/business/repository/**," +
                 "**/dto/**"
 
         // Java version
