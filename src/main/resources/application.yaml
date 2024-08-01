@@ -53,10 +53,17 @@ rabbitmq:
 
 mp:
   messaging:
+    connector:
+      smallrye-rabbitmq:
+        host: localhost
+        port: 5672
+        username: LocalRabbitMQMessagingQueue
+        password: af3c4d5d01d790acc
     incoming:
       "todos.queue":
         connector: smallrye-rabbitmq
-        durable: false
+        durable: true
+        deserializer: io.quarkus.kafka.client.serialization.ObjectMapperDeserializer
     outgoing:
       "todos.exchange":
         connector: smallrye-rabbitmq
