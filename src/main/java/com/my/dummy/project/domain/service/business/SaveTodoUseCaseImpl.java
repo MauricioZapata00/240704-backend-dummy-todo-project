@@ -1,6 +1,7 @@
 package com.my.dummy.project.domain.service.business;
 
 import com.my.dummy.project.application.ports.nosql.mongo.business.TodoRepository;
+import com.my.dummy.project.application.useCase.asynccommunication.publishers.business.PublishSavedTodoEventUseCase;
 import com.my.dummy.project.application.useCase.business.SaveTodoUseCase;
 import com.my.dummy.project.application.useCase.business.ValidateTodoUseCase;
 import com.my.dummy.project.domain.exceptions.business.DuplicatedTodoTitleException;
@@ -20,11 +21,14 @@ public class SaveTodoUseCaseImpl implements SaveTodoUseCase {
 
     private final ValidateTodoUseCase validateTodoUseCase;
 
+    private final PublishSavedTodoEventUseCase publishSavedTodoEventUseCase;
+
     @Override
     public Uni<Todo> process(Todo todoToSave) {
         return this.validateTodoUseCase.process(todoToSave)
                 .map(isTodoValidated -> this.checkTodoToStore(isTodoValidated, todoToSave))
                 .flatMap(this.todoRepository::saveTodo)
+                .flatMap(this.publishSavedTodoEventUseCase::process)
                 .onFailure(DuplicatedTodoTitleException.class).invoke(throwable -> log.error(throwable.getMessage()));
     }
 

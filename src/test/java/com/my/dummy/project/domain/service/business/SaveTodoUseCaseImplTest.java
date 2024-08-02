@@ -1,6 +1,7 @@
 package com.my.dummy.project.domain.service.business;
 
 import com.my.dummy.project.application.ports.nosql.mongo.business.TodoRepository;
+import com.my.dummy.project.application.useCase.asynccommunication.publishers.business.PublishSavedTodoEventUseCase;
 import com.my.dummy.project.application.useCase.business.ValidateTodoUseCase;
 import com.my.dummy.project.domain.exceptions.business.DuplicatedTodoTitleException;
 import com.my.dummy.project.domain.model.business.Todo;
@@ -23,6 +24,9 @@ class SaveTodoUseCaseImplTest {
 
     @Mock
     private ValidateTodoUseCase validateTodoUseCaseMock;
+
+    @Mock
+    private PublishSavedTodoEventUseCase publishSavedTodoEventUseCase;
 
     @InjectMocks
     private SaveTodoUseCaseImpl underTest;
@@ -54,6 +58,8 @@ class SaveTodoUseCaseImplTest {
 
         Mockito.verify(todoRepositoryMock, Mockito.never())
                 .saveTodo(Mockito.any(Todo.class));
+        Mockito.verify(publishSavedTodoEventUseCase, Mockito.never())
+                .process(Mockito.any(Todo.class));
         Mockito.verify(validateTodoUseCaseMock, Mockito.times(1))
                 .process(todoForTest);
     }
@@ -68,6 +74,8 @@ class SaveTodoUseCaseImplTest {
                 .thenReturn(Uni.createFrom().item(Boolean.TRUE));
         Mockito.when(todoRepositoryMock.saveTodo(todoForTest))
                 .thenReturn(Uni.createFrom().item(todoForTest));
+        Mockito.when(publishSavedTodoEventUseCase.process(todoForTest))
+                .thenReturn(Uni.createFrom().item(todoForTest));
 
         underTest.process(todoForTest)
                 .subscribe().with(underTestResult -> {
@@ -80,6 +88,8 @@ class SaveTodoUseCaseImplTest {
         Mockito.verify(todoRepositoryMock, Mockito.times(1))
                 .saveTodo(todoForTest);
         Mockito.verify(validateTodoUseCaseMock, Mockito.times(1))
+                .process(todoForTest);
+        Mockito.verify(publishSavedTodoEventUseCase, Mockito.times(1))
                 .process(todoForTest);
     }
 }
