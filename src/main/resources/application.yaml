@@ -44,6 +44,9 @@ quarkus:
   swagger-ui:
     enable: true
     path: '/backend-dummy-project/swagger-ui'
+  scheduler:
+    enabled: true
+    start-mode: forced
 
 rabbitmq:
   host: amqp

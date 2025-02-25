@@ -26,6 +26,8 @@ dependencies {
     implementation "io.quarkus:quarkus-config-yaml"
     implementation "io.quarkus:quarkus-smallrye-openapi:$quarkusPlatformVersion"
     implementation "io.quarkus:quarkus-vertx:$quarkusPlatformVersion"
+    implementation "io.quarkus:quarkus-scheduler:$quarkusPlatformVersion"
+
 
     testImplementation 'io.smallrye.reactive:mutiny:2.6.1'
     testImplementation 'org.mockito:mockito-core:5.12.0'
